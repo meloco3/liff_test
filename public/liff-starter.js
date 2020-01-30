@@ -200,11 +200,10 @@ function registerButtonHandlers() {
         }
     });
 
-    console.log(2232);
     liff.getProfile().then(function(profile) {
         const url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + profile.userId + '&size=100x100';
         const imgTag = '<img src="' + url + '" alt="QRコード" />';
-        document.getElementById('qrcode').textContent = imgTag;
+        document.getElementById('qrcode').insertAdjacentHTML('afterbegin',imgTag);
     }).catch(function(error) {
         window.alert('Error getting profile: ' + error);
     });
