@@ -1,9 +1,7 @@
 window.onload = function() {
-    const useNodeJS = true;   // if you are not using a node server, set this value to false
-    const defaultLiffId = "";   // change the default LIFF value if you are not using a node server
-
-    // DO NOT CHANGE THIS
-    let myLiffId = "";
+    const useNodeJS = true;  // if you are not using a node server, set this value to false
+    const defaultLiffId = "";  // change the default LIFF value if you are not using a node server
+    let myLiffId = "";  // DO NOT CHANGE THIS
 
     // if node is used, fetch the environment variable and pass it to the LIFF method
     // otherwise, pass defaultLiffId
@@ -63,6 +61,14 @@ function initializeLiff(myLiffId) {
  */
 function initializeApp() {
     registerButtonHandlers();
+    liff.getProfile().then(profile => {
+        // const url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + profile.userId + '&size=100x100';
+        // const imgTag = '<img src="' + url + '" alt="QRコード" />';
+        //document.getElementById('qrcode').insertAdjacentHTML('afterbegin',imgTag);
+        document.getElementById('qrcode').textContent('test');
+    }).catch((err) => {
+        window.alert('Error getting profile: ' + err);
+    });
 }
 
 /**
@@ -106,15 +112,6 @@ function registerButtonHandlers() {
         }
     });
 
-
-    liff.getProfile().then(function(profile) {
-        // const url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + profile.userId + '&size=100x100';
-        // const imgTag = '<img src="' + url + '" alt="QRコード" />';
-        //document.getElementById('qrcode').insertAdjacentHTML('afterbegin',imgTag);
-        document.getElementById('qrcode').textContent(profile.userId);
-    }).catch(function(error) {
-        window.alert('Error getting profile: ' + error);
-    });
 }
 
 /**
