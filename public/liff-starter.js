@@ -65,7 +65,7 @@ function initializeApp() {
         // const url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + profile.userId + '&size=100x100';
         // const imgTag = '<img src="' + url + '" alt="QRコード" />';
         //document.getElementById('qrcode').insertAdjacentHTML('afterbegin',imgTag);
-        document.getElementById('qrcode').textContent('test');
+        document.getElementById('qrcode').textContent = profile.userId;
     }).catch((err) => {
         window.alert('Error getting profile: ' + err);
     });
