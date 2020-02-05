@@ -111,10 +111,18 @@ function registerButtonHandlers() {
  *　main.
  */
 function main() {
-    getProfile();
+    // profile.userIdの値を取得
+    const userId = getProfile();
     // profile.userIdの値を保持するレコードがあるか検索
+    const endPoint = `https://endpointurl.sample/${userId}`;
     // [TRUE] JANコードを取得
     // [FALSE] JANコードを入力するフォームを生成
+    const hasRecord = true;//getRecord(endPoint);
+    if (hasRecord) {
+
+    } else {
+
+    }
 }
 
 /**
@@ -122,7 +130,7 @@ function main() {
  */
 function getProfile() {
     liff.getProfile().then(profile => {
-        document.getElementById('qrcode').textContent = profile.userId;
+        //return profile.userId;
     }).catch((err) => {
         window.alert('Error getting profile: ' + err);
     });
@@ -152,4 +160,22 @@ function toggleElement(elementId) {
     } else {
         elem.style.display = 'block';
     }
+}
+
+/**
+ * API叩いてレコードが取得できるか
+ * @param {string} endPoint
+ * @return {boolean}
+ */
+function getRecord(endPoint) {
+    var request = new XMLHttpRequest();
+    request.open('GET', endPoint, true);
+    request.onload = function () {
+    // レスポンスが返ってきた時の処理
+        var data = this.response;
+        // jancodeのキーがある、かつ、値が格納されてればTRUE。※コードはあとで直す
+        return 'jancode' in data;
+    }
+    // リクエストをURLに送信
+    request.send();
 }

@@ -8,16 +8,23 @@
     </head>
     <body>
         <div calss="barcode">
-            <img id="barcode"/>
+            <img id="barcode" width="80%" /><br><br>
+            ↑JANコード取得できた場合：バーコード表示<br>
+            ↓JANコード取得できなかった場合：フォーム表示<br><br>
+            <input type="number"><br>
+            メンバーカードのバーコードの数値を記入してください<br>
         </div>
         <div id="liffAppContent">
             <!-- ACTION BUTTONS -->
             <div class="buttonGroup">
                 <div class="buttonRow">
+                    <button id="">新規メンバー登録はこちらから</button>
+                </div>
+                <div class="buttonRow">
                     <button id="sendMessageButton">メッセージを送る</button>
                 </div>
                 <div class="buttonRow">
-                    <button id="getAccessToken">アクセストークンを取得する</ button>
+                    <button id="getAccessToken">アクセストークンを取得する</button>
                 </div>
                 <div class="buttonRow">
                     <button id="closeWindowButton">閉じる</button>
