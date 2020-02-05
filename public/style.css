@@ -68,3 +68,7 @@ button {
 .hidden {
     display: none;
 }
+
+.barcode {
+    margin: 0 auto;
+}

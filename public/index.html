@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div id="qrcode"></div>
+        <div calss="barcode">
+            <img id="barcode"/>
+        </div>
         <div id="liffAppContent">
             <!-- ACTION BUTTONS -->
             <div class="buttonGroup">
@@ -40,5 +42,10 @@
         </div>
         <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
         <script src="liff-starter.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
+        <script>
+            'use strict';
+            JsBarcode("#barcode", '4968442502345');
+        </script>
     </body>
 </html>

@@ -61,14 +61,7 @@ function initializeLiff(myLiffId) {
  */
 function initializeApp() {
     registerButtonHandlers();
-    liff.getProfile().then(profile => {
-        // const url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + profile.userId + '&size=100x100';
-        // const imgTag = '<img src="' + url + '" alt="QRコード" />';
-        //document.getElementById('qrcode').insertAdjacentHTML('afterbegin',imgTag);
-        document.getElementById('qrcode').textContent = profile.userId;
-    }).catch((err) => {
-        window.alert('Error getting profile: ' + err);
-    });
+    main();
 }
 
 /**
@@ -114,6 +107,26 @@ function registerButtonHandlers() {
 
 }
 
+/**
+ *　main.
+ */
+function main() {
+    getProfile();
+    // profile.userIdの値を保持するレコードがあるか検索
+    // [TRUE] JANコードを取得
+    // [FALSE] JANコードを入力するフォームを生成
+}
+
+/**
+ * LINEのプロフィールデータを取得する
+ */
+function getProfile() {
+    liff.getProfile().then(profile => {
+        document.getElementById('qrcode').textContent = profile.userId;
+    }).catch((err) => {
+        window.alert('Error getting profile: ' + err);
+    });
+}
 /**
 * Alert the user if LIFF is opened in an external browser and unavailable buttons are tapped
 */
