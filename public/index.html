@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,52 +7,30 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <hr>
         <div calss="barcode">
+            ↓JANコード取得できた場合：バーコード表示<br>
             <img id="barcode" width="80%" /><br><br>
-            ↑JANコード取得できた場合：バーコード表示<br>
+            <hr>
             ↓JANコード取得できなかった場合：フォーム表示<br><br>
             <input type="number"><br>
             メンバーカードのバーコードの数値を記入してください<br>
+            <input type="button" value="送信"><br>
         </div>
+        <hr>
         <div id="liffAppContent">
-            <!-- ACTION BUTTONS -->
             <div class="buttonGroup">
                 <div class="buttonRow">
+                    ↓登録がなかった場合<br>
                     <button id="">新規メンバー登録はこちらから</button>
                 </div>
-                <!-- <div class="buttonRow">
-                    <button id="sendMessageButton">メッセージを送る</button>
-                </div>
-                <div class="buttonRow">
-                    <button id="getAccessToken">アクセストークンを取得する</button>
-                </div> -->
                 <div class="buttonRow">
                     <button id="closeWindowButton">閉じる</button>
                 </div>
-            <//div>
-            <!-- ACCESS TOKEN DATA -->
-            <div id="accessTokenData" class="hidden textLeft">
-                <h2>Access Token</h2>
-                <a href="#" onclick="toggleAccessToken()">Close Access Token</a>
-                <table>
-                    <tr>
-                        <th>accessToken</th>
-                        <td id="accessTokenField"></td>
-                    </tr>
-                </table>
             </div>
-        </div>
-        <!-- LIFF ID ERROR -->
-        <div id="liffIdErrorMessage" class="hidden">
-            <p>You have not assigned any value for LIFF ID.</p>
-            <p>If you are running the app using Node.js, please set the LIFF ID as an environment variable in your Heroku account follwing the below steps: </p>
         </div>
         <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
         <script src="liff-starter.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
-        <script>
-            'use strict';
-            JsBarcode("#barcode", '4968442502345');
-        </script>
     </body>
 </html>

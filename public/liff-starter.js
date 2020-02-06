@@ -15,8 +15,6 @@ window.onload = function() {
                 initializeLiffOrDie(myLiffId);
             })
             .catch(function(error) {
-                document.getElementById("liffAppContent").classList.add('hidden');
-                document.getElementById("nodeLiffIdErrorMessage").classList.remove('hidden');
             });
     } else {
         myLiffId = defaultLiffId;
@@ -30,8 +28,7 @@ window.onload = function() {
 */
 function initializeLiffOrDie(myLiffId) {
     if (!myLiffId) {
-        document.getElementById("liffAppContent").classList.add('hidden');
-        document.getElementById("liffIdErrorMessage").classList.remove('hidden');
+
     } else {
         initializeLiff(myLiffId);
     }
@@ -47,12 +44,10 @@ function initializeLiff(myLiffId) {
             liffId: myLiffId
         })
         .then(() => {
-            // start to use LIFF's api
             initializeApp();
         })
         .catch((err) => {
-            document.getElementById("liffAppContent").classList.add('hidden');
-            document.getElementById("liffInitErrorMessage").classList.remove('hidden');
+
         });
 }
 
@@ -72,38 +67,11 @@ function registerButtonHandlers() {
     // closeWindow call
     document.getElementById('closeWindowButton').addEventListener('click', function() {
         if (!liff.isInClient()) {
-            sendAlertIfNotInClient();
+            alert('This button is unavailable as LIFF is currently being opened in an external browser.');
         } else {
             liff.closeWindow();
         }
     });
-
-    // sendMessages call
-    // document.getElementById('sendMessageButton').addEventListener('click', function() {
-    //     if (!liff.isInClient()) {
-    //         sendAlertIfNotInClient();
-    //     } else {
-    //         liff.sendMessages([{
-    //             'type': 'text',
-    //             'text': "You've successfully sent a message! Hooray!"
-    //         }]).then(function() {
-    //             window.alert('Message sent');
-    //         }).catch(function(error) {
-    //             window.alert('Error sending message: ' + error);
-    //         });
-    //     }
-    // });
-
-    // get access token
-    // document.getElementById('getAccessToken').addEventListener('click', function() {
-    //     if (!liff.isLoggedIn() && !liff.isInClient()) {
-    //         alert('To get an access token, you need to be logged in. Please tap the "login" button below and try again.');
-    //     } else {
-    //         const accessToken = liff.getAccessToken();
-    //         document.getElementById('accessTokenField').textContent = accessToken;
-    //         toggleAccessToken();
-    //     }
-    // });
 
 }
 
@@ -111,55 +79,30 @@ function registerButtonHandlers() {
  *　main.
  */
 function main() {
-    // profile.userIdの値を取得
-    const userId = getProfile();
-    // profile.userIdの値を保持するレコードがあるか検索
-    const endPoint = `https://endpointurl.sample/${userId}`;
-    // [TRUE] JANコードを取得
-    // [FALSE] JANコードを入力するフォームを生成
-    const hasRecord = true;//getRecord(endPoint);
-    if (hasRecord) {
-
+    // ユーザーIDでAPIを叩いて存在チェック
+    const lineUserId     = 'abcdefghijk' // getProfile();
+    const endPoint   = `https://endpointurl.sample/${lineUserId}`;
+    const Data  = {'userId': 'abcdefghijk', 'janCode': '4968442502345'}; // getRecordJSON(endPoint);
+    if (Data.userId) {
+        if (!Data.janCode) {
+            // 例外：ユーザーID取得できるのにバーコード取得できない
+            return;
+        }
+        JsBarcode("#barcode", Data.janCode);
     } else {
-
+        // フォーム表示
     }
 }
-
 /**
  * LINEのプロフィールデータを取得する
  */
 function getProfile() {
     liff.getProfile().then(profile => {
-        //return profile.userId;
+        return profile.userId;
     }).catch((err) => {
+        // LINE側でユーザーID取得できなかった場合
         window.alert('Error getting profile: ' + err);
     });
-}
-/**
-* Alert the user if LIFF is opened in an external browser and unavailable buttons are tapped
-*/
-function sendAlertIfNotInClient() {
-    alert('This button is unavailable as LIFF is currently being opened in an external browser.');
-}
-
-/**
-* Toggle access token data field
-*/
-function toggleAccessToken() {
-    toggleElement('accessTokenData');
-}
-
-/**
-* Toggle specified element
-* @param {string} elementId The ID of the selected element
-*/
-function toggleElement(elementId) {
-    const elem = document.getElementById(elementId);
-    if (elem.offsetWidth > 0 && elem.offsetHeight > 0) {
-        elem.style.display = 'none';
-    } else {
-        elem.style.display = 'block';
-    }
 }
 
 /**
@@ -167,7 +110,7 @@ function toggleElement(elementId) {
  * @param {string} endPoint
  * @return {boolean}
  */
-function getRecord(endPoint) {
+function getRecordJSON(endPoint) {
     var request = new XMLHttpRequest();
     request.open('GET', endPoint, true);
     request.onload = function () {
