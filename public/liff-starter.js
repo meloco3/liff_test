@@ -123,6 +123,17 @@ function getRecordJSON(endPoint) {
     request.send();
 }
 
+/**
+ * API叩いてレコード更新
+ * @param {string}
+ * @return {boolean}
+ */
+function updateRecordJSON() {
+    // JANコード初回入力時に、lineUserIDを登録する
+    // SQLイメージ↓
+    // UPDATE xxx SET line_user_id = xxx WHERE jancode = xxxx;
+}
+
 // 入力された値のバーコードを表示する。
 document.getElementById('submitBarcode').addEventListener('click', function(){
     const inputBarcode = String(document.getElementById('inputBarcode').value);
