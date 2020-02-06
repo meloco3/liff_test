@@ -90,7 +90,7 @@ function main() {
         }
         JsBarcode("#barcode", Data.janCode);
     } else {
-        // フォーム表示
+        // フォーム表示処理
     }
 }
 /**
@@ -122,3 +122,9 @@ function getRecordJSON(endPoint) {
     // リクエストをURLに送信
     request.send();
 }
+
+// 入力された値のバーコードを表示する。
+document.getElementById('submitBarcode').addEventListener('click', function(){
+    const inputBarcode = String(document.getElementById('inputBarcode').value);
+    JsBarcode("#barcode2", inputBarcode);
+});
